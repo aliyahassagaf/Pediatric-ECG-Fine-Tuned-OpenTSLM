@@ -34,3 +34,21 @@ Pediatric-ECG-Fine-Tuned-OpenTSLM/
     ├── 02_post_processing_and_harmonization.ipynb
     ├── 03_finetuned_gemma_preliminary_experiment.ipynb
     └── 04_finetuned_llama_main_experiment.ipynb
+```
+| Notebook                                          | Description                                                                                                                     |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `01_ecg_digitizer_model.ipynb`                    | Runs the ECG digitization pipeline to convert pediatric ECG images into numerical time-series signals using Open ECG Digitizer. |
+| `02_post_processing_and_harmonization.ipynb`      | Performs signal post-processing, data harmonization, formatting, and dataset preparation for OpenTSLM.                          |
+| `03_finetuned_gemma_preliminary_experiment.ipynb` | Contains the preliminary fine-tuning experiment using the Gemma backbone.                                                       |
+| `04_finetuned_llama_main_experiment.ipynb`        | Contains the main OpenTSLM fine-tuning experiment using the LLaMA backbone, including retraining and model evaluation.          |
+
+## Model Development
+
+This study uses OpenTSLM as the main time-series language model framework. Gemma was used as a preliminary backbone experiment to verify the pipeline, while LLaMA was used as the main model backbone.
+
+The main LLaMA fine-tuning process consisted of:
+- Initial fine-tuning for 8 epochs
+- Retraining for 5 epochs using a masked custom collator
+- Loss calculation focused on answer tokens during retraining
+- Final evaluation using generative, classification, and clinical evaluation metrics
+
