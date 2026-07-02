@@ -35,6 +35,7 @@ Pediatric-ECG-Fine-Tuned-OpenTSLM/
     ├── 03_finetuned_gemma_preliminary_experiment.ipynb
     └── 04_finetuned_llama_main_experiment.ipynb
 ```
+## Notebook Description
 | Notebook                                          | Description                                                                                                                     |
 | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | `01_ecg_digitizer_model.ipynb`                    | Runs the ECG digitization pipeline to convert pediatric ECG images into numerical time-series signals using Open ECG Digitizer. |
@@ -52,3 +53,77 @@ The main LLaMA fine-tuning process consisted of:
 - Loss calculation focused on answer tokens during retraining
 - Final evaluation using generative, classification, and clinical evaluation metrics
 
+## Evaluation Summary
+The final model was evaluated using three levels of evaluation: generative evaluation, classification evaluation, and clinical evaluation.
+
+### Generative Evaluation
+| Metric       | Score |
+| ------------ | ----: |
+| BLEU-1       | 0.411 |
+| BLEU-4       | 0.275 |
+| METEOR       | 0.485 |
+| ROUGE-L      | 0.469 |
+| BERTScore-F1 | 0.906 |
+
+### Classification Evaluation
+| Metric            | Score |
+| ----------------- | ----: |
+| Accuracy          | 0.647 |
+| Weighted F1-score | 0.508 |
+| Macro F1-score    | 0.196 |
+
+The classification evaluation showed that all predictions were mapped as Normal, resulting in all abnormal samples being incorrectly classified as Normal. Therefore, the classification performance should be interpreted cautiously.
+
+### Clinical Evaluation
+Clinical evaluation was conducted using an LLM-as-a-Judge approach.
+| Clinical Dimension       |      Score |
+| ------------------------ | ---------: |
+| Diagnostic accuracy      |  2.529 / 5 |
+| Clinical consistency     |  2.235 / 5 |
+| Pediatric relevance      |  4.353 / 5 |
+| Safety                   |  4.000 / 5 |
+| Overall clinical quality | 5.529 / 10 |
+
+The BERTScore-F1 value reflects textual semantic similarity and should not be interpreted as evidence of clinical diagnostic correctness. The safety score reflects the linguistic safety style of the generated output and does not guarantee clinical safety.
+
+## Data Availability
+The pediatric ECG dataset from RSAB Harapan Kita is not publicly available due to privacy, ethical, and institutional restrictions.
+
+The following files and folders are not included in this public repository:
+```
+images/
+output_digitizer/
+opentslm_ready/
+metadata_ecg_rsab.csv
+train_data.csv
+val_data.csv
+test_data.csv
+```
+These files contain patient-derived ECG data, clinical metadata, or dataset split information. This repository only provides cleaned research notebooks, documentation, and aggregate evaluation results.
+
+No original ECG images, patient-derived ECG signals, patient-level metadata, clinical labels, patient-level predictions, or fine-tuned model checkpoints are included in this repository.
+
+## Clinical Disclaimer
+This project is intended for research purposes only. The developed system is not intended for standalone clinical diagnosis, triage, or decision-making.
+
+Further dataset expansion, physician validation, improved grounding to ECG signals, and prospective clinical evaluation are required before any clinical application.
+
+## Thesis Information
+
+Title: Pengembangan dan Evaluasi Sistem Interpretasi Elektrokardiogram Pediatrik Berbasis Open Time-Series Language Model melalui Optimasi Fine-Tuning
+
+Author: Aliyah Fathimah Assagaf
+Institution: Biomedical Engineering, Faculty of Engineering, Universitas Indonesia
+Dataset Source: RSAB Harapan Kita
+
+## Citation
+
+If you use or refer to this repository, please cite the related thesis or publication.
+```
+@thesis{assagaf2026pediatricecgopentslm,
+  title={Pengembangan dan Evaluasi Sistem Interpretasi Elektrokardiogram Pediatrik Berbasis Open Time-Series Language Model melalui Optimasi Fine-Tuning},
+  author={Assagaf, Aliyah Fathimah},
+  year={2026},
+  school={Universitas Indonesia}
+}
+```
